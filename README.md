@@ -299,7 +299,10 @@ curl --request POST \
 	}
 }'
 ```
-![Producer](https://github.com/sofyan48/ggwp/blob/master/docs/images/producer.png)
+![producer](https://github.com/sofyan48/ggwp/blob/master/docs/images/producer.png)
+***Consumer***
+![consumer](https://github.com/sofyan48/ggwp/blob/master/docs/images/consumer.png)
+
 
 #### Insert Data
 ```bash
