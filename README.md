@@ -1,7 +1,7 @@
-# GOLANG BOILERPLATE
+# GGWP TEST
 
 ## Getting Started
-This support For go version 1.13, Boilerplate uncle Bob Models
+This support For go version 1.13, ggwp uncle Bob Models
 
 ### Local Development
 
@@ -80,10 +80,27 @@ air -c watcher.conf
 ### Production Mode
 
 #### Dockerizing
+Dockerizing 1
+---
 Building Image
 ```
-docker build -t boiler
+docker build -t ggwp
 ```
+Edit Environment In docker-compose.yml then Run Compose
+```
+docker-compose up
+```
+Stop Container
+```
+docker-compose stop
+```
+Remove your container
+```
+docker-compose rm -f
+```
+
+Dockerizing 2
+---
 Edit Environment In docker-compose.yml then Run Compose
 ```
 docker-compose up
@@ -102,12 +119,12 @@ docker-compose rm -f
 ```
 .
 ├── Dockerfile
-├── Gopkg.toml
+├── LICENSE
 ├── Makefile
 ├── README.md
 ├── docker-compose.yml
 ├── docs
-│   ├── postman
+│   ├── diagram.png
 │   └── swagger
 │       └── docs
 │           ├── docs.go
@@ -120,35 +137,67 @@ docker-compose rm -f
 │   │   └── server_configuration.go
 │   ├── controller
 │   │   └── v1
+│   │       ├── gql
+│   │       │   └── GraphQlController.go
 │   │       ├── health
-│   │       └── routes.go
+│   │       │   └── V1HealthController.go
+│   │       ├── routes.go
+│   │       └── user
+│   │           └── UserController.go
 │   ├── entity
-│   │   ├── api
-│   │   ├── db
-│   │   │   └── v1
-│   │   └── http
-│   │       └── v1
+│   │   └── v1
+│   │       ├── db
+│   │       │   └── user.go
+│   │       ├── graphql
+│   │       │   └── user.go
+│   │       └── http
+│   │           ├── health.go
+│   │           └── user.go
 │   ├── main.go
 │   ├── migration
 │   │   └── mysql
 │   │       ├── 20191029093439_users.down.sql
 │   │       └── 20191029093439_users.up.sql
+│   ├── realtime
+│   │   └── consumer.go
 │   ├── repository
-│   │   └── db
-│   │       └── v1
+│   │   └── v1
+│   │       └── user
+│   │           └── user.go
+│   ├── resolver
+│   │   └── v1
+│   │       └── resolver.go
 │   ├── routes
 │   │   ├── route.go
 │   │   └── router_test.go
+│   ├── schema
+│   │   └── v1
+│   │       └── schema.go
 │   ├── service
 │   │   └── v1
-│   │       └── health
+│   │       ├── graphql
+│   │       │   └── user.go
+│   │       ├── health
+│   │       │   └── health.go
+│   │       └── user
+│   │           └── user.go
 │   └── util
 │       ├── helper
 │       │   ├── crypto
+│       │   │   ├── crypto.go
+│       │   │   └── crypto_test.go
 │       │   ├── mysqlconnection
+│       │   │   └── connection.go
 │       │   ├── redis
+│       │   │   ├── redis.go
+│       │   │   └── redis_test.go
 │       │   ├── rest
+│       │   │   ├── rest.go
+│       │   │   └── rest_test.go
 │       │   └── str_process
+│       │       └── str_process.go
+│       ├── kafka
+│       │   └── kafka.go
 │       └── middleware
 │           ├── auth.go
 │           ├── cors_middleware.go
@@ -192,15 +241,16 @@ curl -L https://github.com/golang-migrate/migrate/releases/download/$version/mig
 ### Migrating Database
 
 ```
-migrate -path path_migration/ -database 'mysql://root:root@tcp(localhost:3306)/bigevent' up
+migrate -path path_migration/ -database 'mysql://root:root@tcp(localhost:3306)/boiler_db' up
 ```
-in this boilerplate migration path : src/migration/mysql
+**in this boilerplate migration path : src/migration/mysql***
 
 ## Documentation Format
 ### Setup Swagger Docs
 See Documentation 
 [Swag Docs](https://github.com/swaggo/swag)
-
+Local Swagger
+[Local](https://localhost:3000/swagger/index)
 ## How To Contribute
 Please refer to each project's style and contribution guidelines for submitting patches and additions. In general, we follow the "fork-and-pull" Git workflow.
  1. ***Fork*** the repo on GitHub
