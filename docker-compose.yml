@@ -1,4 +1,4 @@
-version: '3'
+version: '2'
 services: 
   database:
     image: mysql:5.7
@@ -45,6 +45,19 @@ services:
       KAFKA_ADVERTISED: 0.0.0.0
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+    
+  worker:
+    image: ggwp_worker
+    restart: always
+    environment:
+        - KAFKA_PORT=9092
+        - KAFKA_HOST=broker
+        - KAFKA_USERNAME=
+        - KAFKA_PASSWORD=
+    command: ./main
+    depends_on:
+      - broker
+
   # api:
   #   build: .
   #   restart: always
@@ -67,3 +80,4 @@ services:
   #   depends_on:
   #     - database
   #     - rdcaches
+  #     - broker
