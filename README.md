@@ -159,9 +159,13 @@ Tree Project
 ├── LICENSE
 ├── Makefile
 ├── README.md
+├── buildspecs
+│   └── docker.sh
+├── docker-compose-local.yml
 ├── docker-compose.yml
 ├── docs
-│   ├── diagram.png
+│   ├── insomnia
+│   │   └── api.json
 │   └── swagger
 │       └── docs
 │           ├── docs.go
@@ -178,6 +182,8 @@ Tree Project
 │   │       │   └── GraphQlController.go
 │   │       ├── health
 │   │       │   └── V1HealthController.go
+│   │       ├── producer
+│   │       │   └── ProducerController.go
 │   │       ├── routes.go
 │   │       └── user
 │   │           └── UserController.go
@@ -187,16 +193,17 @@ Tree Project
 │   │       │   └── user.go
 │   │       ├── graphql
 │   │       │   └── user.go
-│   │       └── http
-│   │           ├── health.go
-│   │           └── user.go
+│   │       ├── http
+│   │       │   ├── health.go
+│   │       │   ├── producer.go
+│   │       │   └── user.go
+│   │       └── realtime
+│   │           └── producer.go
 │   ├── main.go
 │   ├── migration
 │   │   └── mysql
 │   │       ├── 20191029093439_users.down.sql
 │   │       └── 20191029093439_users.up.sql
-│   ├── realtime
-│   │   └── consumer.go
 │   ├── repository
 │   │   └── v1
 │   │       └── user
@@ -216,6 +223,8 @@ Tree Project
 │   │       │   └── user.go
 │   │       ├── health
 │   │       │   └── health.go
+│   │       ├── producer
+│   │       │   └── producer.go
 │   │       └── user
 │   │           └── user.go
 │   └── util
@@ -239,10 +248,14 @@ Tree Project
 │           ├── auth.go
 │           ├── cors_middleware.go
 │           └── middleware.go
-├── tmp
-│   ├── air_errors.log
-│   └── main
-└── watcher.conf
+├── watcher.conf
+└── worker
+    ├── Dockerfile
+    ├── consumer
+    │   └── consumer.go
+    ├── go.mod
+    ├── go.sum
+    └── main.go
 ```
 
 ## How To Understand this project
@@ -252,7 +265,7 @@ See the list below for instructions on how to use this boilerplate:
 2. ***Repositories*** Is a connection model that you will use in a service that will be created later, the entity plays an important role for modeling data that will be stored in a database
 3. ***Service*** Is a logic process that you will create services can also be combined with business logic to facilitate you in managing all services so pay attention to the layering version of the service
 4. ***Controller*** an intermediary between routing and service controller regulates all input and input formats of the REST API that you will create
-5. ***Realtime*** Realtime library or consumer executor
+5. ***Worker*** Runnning Worker for realtime Execution
 6. ***Resolver*** Root Resolver lingking graphql
 7. ***Schema*** Root Schema public graphql
 8. ***Routing*** Routing is a mapping of the paths of the REST API that you have designed, routing is available on each controller version layering, this routing will be called on the router that has been created
