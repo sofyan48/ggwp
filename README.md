@@ -211,10 +211,13 @@ docker-compose rm -f
 ## How To Use
 See the list below for instructions on how to use this boilerplate:
 
-1. ***Entity*** are a form of modeling of the REST API that you will create
+1. ***Entity*** are a form of modeling of the REST API and Query GraphQL that you will create
 2. ***Repositories*** Is a connection model that you will use in a service that will be created later, the entity plays an important role for modeling data that will be stored in a database
 3. ***Service*** Is a logic process that you will create services can also be combined with business logic to facilitate you in managing all services so pay attention to the layering version of the service
 4. ***Controller*** an intermediary between routing and service controller regulates all input and input formats of the REST API that you will create
+5. ***Realtime*** Realtime library or consumer executor
+6. ***Resolver*** Root Resolver lingking graphql
+7. ***Schema*** Root Schema public graphql
 5. ***Routing*** Routing is a mapping of the paths of the REST API that you have designed, routing is available on each controller version layering, this routing will be called on the router that has been created
 
 Plugins and utils are in the ***util*** folder all third-party packages that help you should be stored in this folder, you can choose whether the package is a middleware of your REST API or as a pure supporting utility
