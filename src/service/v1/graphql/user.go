@@ -27,8 +27,7 @@ type GraphQLUserServiceInterface interface {
 }
 
 // GraphQLGetUserByID params
-// @id: int
-// @waitGroup: *sync.WaitGroup
+// @gq: graphql.ResolveParams
 // return interface{}, error
 func (service *GraphQLUserService) GraphQLGetUserByID(gq graphql.ResolveParams) (interface{}, error) {
 	id, hasID := gq.Args["id"].(int)
@@ -37,7 +36,6 @@ func (service *GraphQLUserService) GraphQLGetUserByID(gq graphql.ResolveParams) 
 	}
 	userData := &dbEntity.Users{}
 	result, err := service.userRepository.GetUserByID(id, userData)
-
 	if err != nil {
 		return "", errors.New("Function Errors")
 	}
@@ -45,8 +43,7 @@ func (service *GraphQLUserService) GraphQLGetUserByID(gq graphql.ResolveParams) 
 }
 
 // GraphQLGetAllUser params
-// @id: int
-// @count: int
+// @gq: graphql.ResolveParams
 // return interface{}, error
 func (service *GraphQLUserService) GraphQLGetAllUser(gq graphql.ResolveParams) (interface{}, error) {
 	page, hasPage := gq.Args["page"].(int)
@@ -54,7 +51,10 @@ func (service *GraphQLUserService) GraphQLGetAllUser(gq graphql.ResolveParams) (
 	if !hasLimit && !hasPage {
 		return "", errors.New("Limit And Page Not Resolve")
 	}
-	users, _ := service.userRepository.GetUsersList(limit, page)
+	users, err := service.userRepository.GetUsersList(limit, page)
+	if err != nil {
+		return "", errors.New("Function Errors")
+	}
 	result := map[string]interface{}{
 		"results": users,
 		"page":    page,

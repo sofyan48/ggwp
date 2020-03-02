@@ -5,6 +5,9 @@ import (
 	health "github.com/sofyan48/ggwp/src/controller/v1/health"
 	healthService "github.com/sofyan48/ggwp/src/service/v1/health"
 
+	users "github.com/sofyan48/ggwp/src/controller/v1/user"
+	userService "github.com/sofyan48/ggwp/src/service/v1/user"
+
 	graphQL "github.com/sofyan48/ggwp/src/controller/v1/gql"
 
 	"github.com/sofyan48/ggwp/src/util/middleware"
@@ -26,9 +29,15 @@ func (rLoader *V1RouterLoader) V1Router(router *gin.Engine) {
 
 	graphQLHandler := &graphQL.GraphQlController{}
 
+	// User Handler Routes
+	userHandler := &users.V1UserController{
+		UserService: userService.V1UserServiceHandler(),
+	}
+
 	//********* Calling Handler To Routers *********//
 	rLoader.routerHealthCheck(router, healthHandler)
 	rLoader.routerGraphQL(router, graphQLHandler)
+	rLoader.routerUsers(router, userHandler)
 
 }
 
@@ -48,4 +57,10 @@ func (rLoader *V1RouterLoader) routerHealthCheck(router *gin.Engine, handler *he
 func (rLoader *V1RouterLoader) routerGraphQL(router *gin.Engine, handler *graphQL.GraphQlController) {
 	group := router.Group("v1/graphql")
 	group.POST("", handler.GraphQLControll)
+}
+
+func (rLoader *V1RouterLoader) routerUsers(router *gin.Engine, handler *users.V1UserController) {
+	group := router.Group("v1/users")
+	group.POST("", handler.InsertUsers)
+	group.PUT(":id", handler.UpdateUsersByID)
 }
