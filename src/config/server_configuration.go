@@ -2,7 +2,7 @@ package config
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com:sofyan48/ggwp/src/util/middleware"
+	"github.com/sofyan48/ggwp/src/util/middleware"
 )
 
 // SetupRouter server router configuration

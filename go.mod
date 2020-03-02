@@ -3,10 +3,13 @@ module github.com/sofyan48/ggwp
 go 1.13
 
 require (
+	github.com/adiatma/moviedb-golang-graphql v0.0.0-20200118152512-73eb2dc65e31
 	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751
 	github.com/garyburd/redigo v1.6.0
 	github.com/gin-gonic/gin v1.4.0
 	github.com/go-sql-driver/mysql v1.4.1
+	github.com/graphql-go/graphql v0.7.9
+	github.com/jinzhu/copier v0.0.0-20190924061706-b57f9002281a
 	github.com/jinzhu/gorm v1.9.11
 	github.com/joho/godotenv v1.3.0
 	github.com/stretchr/testify v1.4.0

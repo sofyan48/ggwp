@@ -2,10 +2,12 @@ package users
 
 import (
 	"github.com/gin-gonic/gin"
-	health "github.com:sofyan48/ggwp/src/controller/v1/health"
-	healthService "github.com:sofyan48/ggwp/src/service/v1/health"
+	health "github.com/sofyan48/ggwp/src/controller/v1/health"
+	healthService "github.com/sofyan48/ggwp/src/service/v1/health"
 
-	"github.com:sofyan48/ggwp/src/util/middleware"
+	graphQL "github.com/sofyan48/ggwp/src/controller/v1/gql"
+
+	"github.com/sofyan48/ggwp/src/util/middleware"
 )
 
 // V1RouterLoader types
@@ -22,8 +24,11 @@ func (rLoader *V1RouterLoader) V1Router(router *gin.Engine) {
 		HealthService: healthService.V1HealthCheckHandler(),
 	}
 
+	graphQLHandler := &graphQL.GraphQlController{}
+
 	//********* Calling Handler To Routers *********//
 	rLoader.routerHealthCheck(router, healthHandler)
+	rLoader.routerGraphQL(router, graphQLHandler)
 
 }
 
@@ -33,6 +38,14 @@ func (rLoader *V1RouterLoader) V1Router(router *gin.Engine) {
 // @router: gin Engine
 // @handler: HealthController
 func (rLoader *V1RouterLoader) routerHealthCheck(router *gin.Engine, handler *health.V1HealthController) {
-	group := router.Group("v1/check")
+	group := router.Group("v1/healthcheck")
 	group.GET("", handler.HealthCheck)
+}
+
+// routerDefinition Routes for event organizer | params
+// @router: gin Engine
+// @handler: HealthController
+func (rLoader *V1RouterLoader) routerGraphQL(router *gin.Engine, handler *graphQL.GraphQlController) {
+	group := router.Group("v1/graphql")
+	group.POST("", handler.GraphQLControll)
 }

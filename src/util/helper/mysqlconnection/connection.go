@@ -13,6 +13,8 @@ import (
 
 // DB Global Connetction
 var DB *gorm.DB
+
+// TransactionDB ...
 var TransactionDB *gorm.DB
 
 // DBInit Initialization Connection

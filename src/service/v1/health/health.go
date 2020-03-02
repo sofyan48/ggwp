@@ -4,9 +4,9 @@ import (
 	"time"
 
 	"github.com/jinzhu/gorm"
-	httpEntity "github.com:sofyan48/ggwp/src/entity/http/v1"
-	connection "github.com:sofyan48/ggwp/src/util/helper/mysqlconnection"
-	redisConn "github.com:sofyan48/ggwp/src/util/helper/redis"
+	httpEntity "github.com/sofyan48/ggwp/src/entity/v1/http"
+	connection "github.com/sofyan48/ggwp/src/util/helper/mysqlconnection"
+	redisConn "github.com/sofyan48/ggwp/src/util/helper/redis"
 )
 
 // V1HealthCheck | Derivated from UserRepository

@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	service "github.com:sofyan48/ggwp/src/service/v1/health"
+	service "github.com/sofyan48/ggwp/src/service/v1/health"
 )
 
 // V1HealthController types

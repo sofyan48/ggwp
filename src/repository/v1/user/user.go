@@ -1,12 +1,12 @@
-package v1
+package user
 
 import (
 	"sync"
 
 	"github.com/jinzhu/gorm"
 
-	dbEntity "github.com:sofyan48/ggwp/src/entity/db/v1"
-	connection "github.com:sofyan48/ggwp/src/util/helper/mysqlconnection"
+	dbEntity "github.com/sofyan48/ggwp/src/entity/v1/db"
+	connection "github.com/sofyan48/ggwp/src/util/helper/mysqlconnection"
 )
 
 // UserRepository types
@@ -17,7 +17,9 @@ type UserRepository struct {
 // UserRepositoryHandler Users handler repo
 // return: UserRepository
 func UserRepositoryHandler() *UserRepository {
-	return &UserRepository{DB: *connection.GetConnection()}
+	return &UserRepository{
+		DB: *connection.GetConnection(),
+	}
 }
 
 // UserRepositoryInterface interface
