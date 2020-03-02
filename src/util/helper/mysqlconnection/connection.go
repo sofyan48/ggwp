@@ -8,6 +8,7 @@ import (
 	// "log"
 	"github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
+	"github.com/joho/godotenv"
 	"go.uber.org/zap"
 )
 
@@ -20,6 +21,7 @@ var TransactionDB *gorm.DB
 // DBInit Initialization Connection
 // return connection, error
 func DBInit() (*gorm.DB, error) {
+	godotenv.Load()
 	mysqlCon := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True",
 		os.Getenv("DB_MYSQL_USERNAME"),
 		os.Getenv("DB_MYSQL_PASSWORD"),

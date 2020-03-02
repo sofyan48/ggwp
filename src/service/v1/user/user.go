@@ -2,7 +2,6 @@ package user
 
 import (
 	"errors"
-	"sync"
 
 	"github.com/graphql-go/graphql"
 	"github.com/jinzhu/copier"
@@ -24,24 +23,22 @@ func UserServiceHandler() *V1UserService {
 	}
 }
 
-// UserServiceInterface interface
-type UserServiceInterface interface {
-	GetUserByID(id int, waitGroup *sync.WaitGroup) *httpEntity.UserDetailResponse
-	GetAllUser(page int, count int) []httpEntity.UserResponse
-}
-
 // GetUserByID params
 // @id: int
 // @waitGroup: *sync.WaitGroup
 // return entity UserDetailResponse
-func (service *V1UserService) GetUserByID(id int, waitGroup *sync.WaitGroup) *httpEntity.UserDetailResponse {
+func (service *V1UserService) GetUserByID(gq graphql.ResolveParams) (interface{}, error) {
+	id, hasID := gq.Args["id"].(int)
+	if !hasID {
+		return "", errors.New("ID Not Valid")
+	}
 	userData := &dbEntity.Users{}
-	result := &httpEntity.UserDetailResponse{}
-	waitGroup.Add(1)
-	go service.userRepository.GetUserByID(id, userData, waitGroup)
-	waitGroup.Wait()
-	copier.Copy(&result, &userData)
-	return result
+	result, err := service.userRepository.GetUserByID(id, userData)
+
+	if err != nil {
+		return "", errors.New("Function Errors")
+	}
+	return result, nil
 }
 
 // GetAllUser params
@@ -49,13 +46,17 @@ func (service *V1UserService) GetUserByID(id int, waitGroup *sync.WaitGroup) *ht
 // @count: int
 // return entity UserResponse
 func (service *V1UserService) GetAllUser(gq graphql.ResolveParams) (interface{}, error) {
+	data := []httpEntity.UserResponse{}
 	page, hasPage := gq.Args["page"].(int)
 	limit, hasLimit := gq.Args["limit"].(int)
 	if !hasLimit && !hasPage {
 		return "", errors.New("Limit And Page Not Resolve")
 	}
 	users, _ := service.userRepository.GetUsersList(limit, page)
-	result := []httpEntity.UserResponse{}
-	copier.Copy(&result, &users)
+	copier.Copy(&data, &users)
+	result := map[string]interface{}{
+		"results": data,
+		"page":    page,
+	}
 	return result, nil
 }

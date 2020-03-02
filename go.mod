@@ -3,7 +3,6 @@ module github.com/sofyan48/ggwp
 go 1.13
 
 require (
-	github.com/adiatma/moviedb-golang-graphql v0.0.0-20200118152512-73eb2dc65e31
 	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751
 	github.com/garyburd/redigo v1.6.0
 	github.com/gin-gonic/gin v1.4.0
@@ -18,4 +17,5 @@ require (
 	github.com/swaggo/swag v1.6.3
 	go.uber.org/zap v1.13.0
 	golang.org/x/crypto v0.0.0-20191119213627-4f8c1d86b1ba
+	golang.org/x/tools v0.0.0-20191204011308-9611592c72f6 // indirect
 )

@@ -8,10 +8,10 @@ import (
 
 var userService = user.UserServiceHandler()
 
-// Query fields
-var Query = gql.Fields{
-	"User": &gql.Field{
-		Type: types.User,
+// RootResolver fields
+var RootResolver = gql.Fields{
+	"Users": &gql.Field{
+		Type: types.Users,
 		Args: gql.FieldConfigArgument{
 			"page": &gql.ArgumentConfig{
 				Type: gql.Int,
@@ -21,5 +21,15 @@ var Query = gql.Fields{
 			},
 		},
 		Resolve: userService.GetAllUser,
+	},
+
+	"User": &gql.Field{
+		Type: types.User,
+		Args: gql.FieldConfigArgument{
+			"id": &gql.ArgumentConfig{
+				Type: gql.Int,
+			},
+		},
+		Resolve: userService.GetUserByID,
 	},
 }

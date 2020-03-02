@@ -1,8 +1,6 @@
 package user
 
 import (
-	"sync"
-
 	"github.com/jinzhu/gorm"
 
 	dbEntity "github.com/sofyan48/ggwp/src/entity/v1/db"
@@ -24,7 +22,7 @@ func UserRepositoryHandler() *UserRepository {
 
 // UserRepositoryInterface interface
 type UserRepositoryInterface interface {
-	GetUserByID(id int, userData *dbEntity.Users, wg *sync.WaitGroup) error
+	GetUserByID(id int, userData *dbEntity.Users) (*dbEntity.Users, error)
 	UpdateUserByID(id int, userData *dbEntity.Users) error
 	GetUsersList(limit int, offset int) ([]dbEntity.Users, error)
 	InsertUsers(userData *dbEntity.Users) error
@@ -36,12 +34,11 @@ type UserRepositoryInterface interface {
 // @userData: entity Users
 // wg *sync.WaitGroup
 // return error
-func (repository *UserRepository) GetUserByID(id int, userData *dbEntity.Users, wg *sync.WaitGroup) error {
+func (repository *UserRepository) GetUserByID(id int, userData *dbEntity.Users) (*dbEntity.Users, error) {
 	query := repository.DB.Table("users")
 	query = query.Where("id=?", id)
 	query = query.First(&userData)
-	wg.Done()
-	return query.Error
+	return userData, query.Error
 }
 
 // UpdateUserByID params
@@ -63,7 +60,7 @@ func (repository *UserRepository) UpdateUserByID(id int, userData *dbEntity.User
 func (repository *UserRepository) GetUsersList(limit int, offset int) ([]dbEntity.Users, error) {
 	users := []dbEntity.Users{}
 	query := repository.DB.Table("users")
-	query = query.Limit(limit).Offset(offset)
+	query = query.Limit(10).Offset(0)
 	query = query.Find(&users)
 	return users, query.Error
 }

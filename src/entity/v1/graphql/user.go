@@ -4,11 +4,11 @@ import (
 	gql "github.com/graphql-go/graphql"
 )
 
-// User fields
-var User = gql.NewObject(gql.ObjectConfig{
-	Name: "User",
+// ResultUsers fields
+var ResultUsers = gql.NewObject(gql.ObjectConfig{
+	Name: "results",
 	Fields: gql.Fields{
-		"ID": &gql.Field{
+		"id": &gql.Field{
 			Type: gql.Int,
 		},
 		"name": &gql.Field{
@@ -38,16 +38,54 @@ var User = gql.NewObject(gql.ObjectConfig{
 		"district": &gql.Field{
 			Type: gql.String,
 		},
-		"lat": &gql.Field{
+	},
+})
+
+// Users type
+var Users = gql.NewObject(gql.ObjectConfig{
+	Name: "Users",
+	Fields: gql.Fields{
+		"results": &gql.Field{
+			Type: gql.NewList(ResultUsers),
+		},
+		"page": &gql.Field{
+			Type: gql.Int,
+		},
+	},
+})
+
+// User type
+var User = gql.NewObject(gql.ObjectConfig{
+	Name: "User",
+	Fields: gql.Fields{
+		"id": &gql.Field{
+			Type: gql.Int,
+		},
+		"name": &gql.Field{
 			Type: gql.String,
 		},
-		"lng": &gql.Field{
+		"email": &gql.Field{
 			Type: gql.String,
 		},
-		"job": &gql.Field{
+		"password": &gql.Field{
 			Type: gql.String,
 		},
-		"image": &gql.Field{
+		"dateofbirth": &gql.Field{
+			Type: gql.String,
+		},
+		"phoneNumber": &gql.Field{
+			Type: gql.String,
+		},
+		"currentAddress": &gql.Field{
+			Type: gql.String,
+		},
+		"city": &gql.Field{
+			Type: gql.String,
+		},
+		"province": &gql.Field{
+			Type: gql.String,
+		},
+		"district": &gql.Field{
 			Type: gql.String,
 		},
 	},
