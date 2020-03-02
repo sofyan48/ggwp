@@ -9,8 +9,7 @@ import (
 )
 
 // Kafka ...
-type Kafka struct {
-}
+type Kafka struct{}
 
 // KafkaHandler ...
 func KafkaHandler() *Kafka {
@@ -19,8 +18,22 @@ func KafkaHandler() *Kafka {
 
 // KafkaInterface ...
 type KafkaInterface interface {
-	Consumer(topics []string, signals chan os.Signal) (interface{}, error)
-	Producer(topic string, data interface{}) (interface{}, error)
+	Consumer(topics []string, signals chan os.Signal)
+	Producer(topic string, msg string) (int64, error)
+}
+
+// Producer ...
+func (kf *Kafka) Producer(topic string, msg string) (int64, error) {
+	var producer sarama.SyncProducer
+	kafkaMsg := &sarama.ProducerMessage{
+		Topic: topic,
+		Value: sarama.StringEncoder(msg),
+	}
+	_, offset, err := producer.SendMessage(kafkaMsg)
+	if err != nil {
+		return offset, err
+	}
+	return offset, nil
 }
 
 // Consumer ...
@@ -57,18 +70,4 @@ func consumeMessage(consumer sarama.Consumer, topic string, partition int32, c c
 		c <- msg
 	}
 
-}
-
-// Producer ...
-func (kf *Kafka) Producer(topic string, msg string) (interface{}, error) {
-	var producer sarama.SyncProducer
-	kafkaMsg := &sarama.ProducerMessage{
-		Topic: topic,
-		Value: sarama.StringEncoder(msg),
-	}
-	_, _, err := producer.SendMessage(kafkaMsg)
-	if err != nil {
-		return nil, err
-	}
-	return nil, nil
 }

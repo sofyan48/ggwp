@@ -12,14 +12,12 @@ import (
 // V1HealthCheck | Derivated from UserRepository
 type V1HealthCheck struct {
 	DB gorm.DB
-	// Redis redis.Conn
 }
 
 // V1HealthCheckHandler Handler
 func V1HealthCheckHandler() *V1HealthCheck {
 	return &V1HealthCheck{
 		DB: *connection.GetConnection(),
-		// Redis: redisConn.GetConnection(),
 	}
 }
 
@@ -45,12 +43,6 @@ func (service *V1HealthCheck) HealthCheck() *httpEntity.HealthResponse {
 	} else {
 		result.Redis = "OK"
 	}
-	// fmt.Println(redisErr)
-	// if redisErr != nil {
-	// 	result.Redis = redisErr
-	// } else {
-	// 	result.Redis = redisErr
-	// }
 
 	result.Status = "Servers OK"
 
