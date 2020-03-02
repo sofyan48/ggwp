@@ -3,26 +3,6 @@
 ## Getting Started
 This support For go version 1.13, ggwp uncle Bob Models
 
-## Database Migration
-### Golang Migrate
-Documentation Mode 
-[Release Downloads](https://github.com/golang-migrate/migrate/blob/master/cmd/migrate/README.md)
-
-#### Installing
-##### MAC
-```
-brew install golang-migrate
-```
-##### Linux And Windows
-```
-curl -L https://github.com/golang-migrate/migrate/releases/download/$version/migrate.$platform-amd64.tar.gz | tar xvz
-```
-### Migrating Database
-```
-migrate -path src/migration/mysql/ -database 'mysql://root:root@tcp(localhost:3306)/boiler_db' up
-```
-***in this boilerplate migration path : src/migration/mysql/***
-
 #### Environment Setup
 For Development Mode Setup dotenv
 ```
@@ -149,6 +129,27 @@ Remove your container
 ```
 docker-compose rm -f
 ```
+
+## Database Migration
+After setup local or production setup database now
+### Golang Migrate
+Documentation Mode 
+[Release Downloads](https://github.com/golang-migrate/migrate/blob/master/cmd/migrate/README.md)
+
+#### Installing
+##### MAC
+```
+brew install golang-migrate
+```
+##### Linux And Windows
+```
+curl -L https://github.com/golang-migrate/migrate/releases/download/$version/migrate.$platform-amd64.tar.gz | tar xvz
+```
+### Migrating Database
+```
+migrate -path src/migration/mysql/ -database 'mysql://root:root@tcp(localhost:3306)/boiler_db' up
+```
+***in this boilerplate migration path : src/migration/mysql/***
 
 ## Tree
 Tree Project
