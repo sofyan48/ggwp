@@ -18,25 +18,25 @@ services:
     command: ["redis-server"]
     ports:
       - "6379:6379"
-  # api:
-  #   build: .
-  #   restart: always
-  #   ports:
-  #     - 3000:3000
-  #   environment:
-  #     - GIN_MODE=release
-  #     - SERVER_ADDRESS=0.0.0.0
-  #     - SERVER_PORT=3000
-  #     - SERVER_TIMEZONE=Asia/Jakarta
-  #     - DB_MYSQL_USERNAME=boiler
-  #     - DB_MYSQL_PASSWORD=boiler
-  #     - DB_MYSQL_HOST=database
-  #     - DB_MYSQL_PORT=3306
-  #     - DB_MYSQL_DATABASE=boiler_db
-  #     - REDIS_HOST=rdcaches
-  #     - REDIS_PORT=6379
-  #   command: ./main -e production
-  #   tty: true
-  #   depends_on:
-  #     - database
-  #     - rdcaches
+  api:
+    build: .
+    restart: always
+    ports:
+      - 3000:3000
+    environment:
+      - GIN_MODE=release
+      - SERVER_ADDRESS=0.0.0.0
+      - SERVER_PORT=3000
+      - SERVER_TIMEZONE=Asia/Jakarta
+      - DB_MYSQL_USERNAME=root
+      - DB_MYSQL_PASSWORD=root
+      - DB_MYSQL_HOST=database
+      - DB_MYSQL_PORT=3306
+      - DB_MYSQL_DATABASE=boiler_db
+      - REDIS_HOST=rdcaches
+      - REDIS_PORT=6379
+    command: ./main -e production
+    tty: true
+    depends_on:
+      - database
+      - rdcaches

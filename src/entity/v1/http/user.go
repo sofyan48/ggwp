@@ -17,11 +17,6 @@ type UserRequest struct {
 	Lng            float64 `json:"lng" form:"lng"`
 	Job            string  `json:"job" form:"job"`
 	Image          string  `json:"image" form:"image"`
-	StartIncome    int     `json:"start_income" form:"start_income"`
-	EndIncome      int     `json:"end_income" form:"end_income"`
-	Interest       string  `json:"interests" form:"interests"`
-	Habit          string  `json:"habit" form:"habit"`
-	IsOrganizer    bool    `json:"is_organizer" form:"is_organizer"`
 }
 
 // UserDetailResponse scheme to detail respons
@@ -40,11 +35,6 @@ type UserDetailResponse struct {
 	Lng            float64    `json:"lng"`
 	Job            string     `json:"job"`
 	Image          string     `json:"image"`
-	StartIncome    int        `json:"start_income"`
-	EndIncome      int        `json:"end_income"`
-	Interest       string     `json:"interests"`
-	Habit          string     `json:"habit"`
-	IsOrganizer    bool       `json:"is_organizer"`
 	CreatedAt      *time.Time `json:"created_at"`
 	UpdatedAt      *time.Time `json:"updated_at"`
 }

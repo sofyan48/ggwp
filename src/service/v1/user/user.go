@@ -1,6 +1,7 @@
 package user
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/jinzhu/copier"
@@ -25,7 +26,7 @@ func V1UserServiceHandler() *V1UserService {
 
 // V1UserServiceInterface interface
 type V1UserServiceInterface interface {
-	UpdateUserByID(id int, payload httpEntity.UserRequest) bool
+	UpdateUserByID(id int, payload httpEntity.UserRequest) (*httpEntity.UserDetailResponse, error)
 	InsertUsers(payload httpEntity.UserRequest) (*httpEntity.UserDetailResponse, error)
 }
 
@@ -33,7 +34,8 @@ type V1UserServiceInterface interface {
 // @id: int
 // @payload: entity UserRequest
 // return boolean
-func (service *V1UserService) UpdateUserByID(id int, payload httpEntity.UserRequest) bool {
+func (service *V1UserService) UpdateUserByID(id int, payload httpEntity.UserRequest) (*httpEntity.UserDetailResponse, error) {
+	fmt.Println("Payload: ", payload)
 	var nows = time.Now()
 	user := &dbEntity.Users{}
 	user.Name = payload.Name
@@ -52,9 +54,11 @@ func (service *V1UserService) UpdateUserByID(id int, payload httpEntity.UserRequ
 	user.UpdatedAt = &nows
 	err := service.userRepository.UpdateUserByID(id, user)
 	if nil != err {
-		return false
+		return nil, err
 	}
-	return true
+	results := &httpEntity.UserDetailResponse{}
+	copier.Copy(results, user)
+	return results, nil
 }
 
 // InsertUsers params

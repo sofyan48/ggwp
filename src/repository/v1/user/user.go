@@ -26,7 +26,6 @@ type UserRepositoryInterface interface {
 	UpdateUserByID(id int, userData *dbEntity.Users) error
 	GetUsersList(limit int, offset int) ([]dbEntity.Users, error)
 	InsertUsers(userData *dbEntity.Users) error
-	CheckEmailUsers(email string, usersData *dbEntity.Users) bool
 }
 
 // GetUserByID params
@@ -73,16 +72,4 @@ func (repository *UserRepository) InsertUsers(usersData *dbEntity.Users) error {
 	query = query.Create(usersData)
 	query.Scan(&usersData)
 	return query.Error
-}
-
-// CheckEmailUsers params
-// @email : string
-// @userData: entity Users
-// return error
-func (repository *UserRepository) CheckEmailUsers(email string, usersData *dbEntity.Users) bool {
-	query := repository.DB.Table("users")
-	if err := query.Where("email=?", email).First(&usersData).Error; err != nil {
-		return false
-	}
-	return true
 }

@@ -29,8 +29,12 @@ func (service *V1UserController) UpdateUsersByID(context *gin.Context) {
 		rest.ResponseMessages(context, http.StatusBadRequest, "Bad Request")
 		return
 	}
-	service.UserService.UpdateUserByID(id, payload)
-	rest.ResponseMessages(context, http.StatusNoContent, "Edited")
+	results, err := service.UserService.UpdateUserByID(id, payload)
+	if err != nil {
+		rest.ResponseMessages(context, http.StatusUnauthorized, fmt.Sprintf("%e", err))
+		return
+	}
+	rest.ResponseData(context, http.StatusCreated, results)
 	return
 }
 
@@ -42,7 +46,6 @@ func (service *V1UserController) InsertUsers(context *gin.Context) {
 		rest.ResponseMessages(context, http.StatusBadRequest, "Bad Request")
 		return
 	}
-	fmt.Println(payload)
 	results, err := service.UserService.InsertUsers(payload)
 	if err != nil {
 		rest.ResponseMessages(context, http.StatusUnauthorized, fmt.Sprintf("%e", err))

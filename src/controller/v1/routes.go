@@ -60,7 +60,7 @@ func (rLoader *V1RouterLoader) routerGraphQL(router *gin.Engine, handler *graphQ
 }
 
 func (rLoader *V1RouterLoader) routerUsers(router *gin.Engine, handler *users.V1UserController) {
-	group := router.Group("v1/users")
+	group := router.Group("v1/user")
 	group.POST("", handler.InsertUsers)
 	group.PUT(":id", handler.UpdateUsersByID)
 }
