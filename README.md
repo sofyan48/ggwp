@@ -70,7 +70,7 @@ Building GGWP
 ```
 go build src/main.go
 ```
-Run Buildin
+Run Building
 ```
 ./main
 ```
