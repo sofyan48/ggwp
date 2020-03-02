@@ -14,7 +14,10 @@ build:
 run:
 	@go run src/main.go
 
-production:
+ggwp:
+	@go run src/main.go -e production
+
+worker:
 	@go run src/main.go -e production
 
 docker-stop:
@@ -26,4 +29,4 @@ docker-image:
 docker-run:
 	@docker-compose up
 
-.PHONY: test depend build  run stop docker docker-stop docker-image docker-run devel
+.PHONY: test depend build  run stop docker docker-stop docker-image docker-run devel worker ggwp
