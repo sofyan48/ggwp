@@ -248,6 +248,7 @@ migrate -path path_migration/ -database 'mysql://root:root@tcp(localhost:3306)/b
 ### Setup Swagger Docs
 See Documentation 
 [Swag Docs](https://github.com/swaggo/swag)
+### Local Docs
 Local Swagger
 [Local](https://localhost:3000/swagger/index.html)
 
