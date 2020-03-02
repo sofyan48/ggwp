@@ -3,10 +3,10 @@ package v1
 import (
 	gql "github.com/graphql-go/graphql"
 	types "github.com/sofyan48/ggwp/src/entity/v1/graphql"
-	"github.com/sofyan48/ggwp/src/service/v1/user"
+	user "github.com/sofyan48/ggwp/src/service/v1/graphql"
 )
 
-var userService = user.UserServiceHandler()
+var userService = user.GraphQLUserServiceHandler()
 
 // RootResolver fields
 var RootResolver = gql.Fields{
@@ -20,7 +20,7 @@ var RootResolver = gql.Fields{
 				Type: gql.Int,
 			},
 		},
-		Resolve: userService.GetAllUser,
+		Resolve: userService.GraphQLGetAllUser,
 	},
 
 	"User": &gql.Field{
@@ -30,6 +30,6 @@ var RootResolver = gql.Fields{
 				Type: gql.Int,
 			},
 		},
-		Resolve: userService.GetUserByID,
+		Resolve: userService.GraphQLGetUserByID,
 	},
 }
