@@ -21,5 +21,10 @@ func (controller *V1ProducerController) ProducerSend(context *gin.Context) {
 		rest.ResponseMessages(context, http.StatusBadRequest, "Bad Request")
 		return
 	}
-	controller.Producer.SendMessages(payload)
+	result, err := controller.Producer.SendMessages(payload)
+	if err != nil {
+		rest.ResponseMessages(context, http.StatusInternalServerError, err.Error())
+		return
+	}
+	rest.ResponseData(context, http.StatusOK, result)
 }

@@ -1,11 +1,10 @@
 package kafka
 
 import (
-	"fmt"
 	"os"
+	"time"
 
 	"github.com/Shopify/sarama"
-	"github.com/sirupsen/logrus"
 )
 
 // Kafka ...
@@ -18,13 +17,18 @@ func KafkaHandler() *Kafka {
 
 // KafkaInterface ...
 type KafkaInterface interface {
-	Consumer(topics []string, signals chan os.Signal)
 	Producer(topic string, msg string) (int64, error)
 }
 
 // Producer ...
 func (kf *Kafka) Producer(topic string, msg string) (int64, error) {
-	var producer sarama.SyncProducer
+	kafkaConfig := getKafkaConfig(os.Getenv("KAFKA_USERNAME"), os.Getenv("KAFKA_PASSWORD"))
+	kafkaHost := os.Getenv("KAFKA_HOST")
+	kafkaPort := os.Getenv("KAFKA_PORT")
+	producer, err := sarama.NewSyncProducer([]string{kafkaHost + ":" + kafkaPort}, kafkaConfig)
+	if err != nil {
+		return 0, err
+	}
 	kafkaMsg := &sarama.ProducerMessage{
 		Topic: topic,
 		Value: sarama.StringEncoder(msg),
@@ -36,38 +40,16 @@ func (kf *Kafka) Producer(topic string, msg string) (int64, error) {
 	return offset, nil
 }
 
-// Consumer ...
-func (kf *Kafka) Consumer(topics []string, signals chan os.Signal) {
-	chanMessage := make(chan *sarama.ConsumerMessage, 256)
-	var consumer sarama.Consumer
-	for _, topic := range topics {
-		partitionList, err := consumer.Partitions(topic)
-		if err != nil {
-			logrus.Errorf("Unable to get partition got error %v", err)
-			continue
-		}
-		for _, partition := range partitionList {
-			fmt.Println(partition)
-			go consumeMessage(consumer, topic, partition, chanMessage)
-		}
-	}
-}
+func getKafkaConfig(username, password string) *sarama.Config {
+	kafkaConfig := sarama.NewConfig()
+	kafkaConfig.Producer.Return.Successes = true
+	kafkaConfig.Net.WriteTimeout = 5 * time.Second
+	kafkaConfig.Producer.Retry.Max = 0
 
-func consumeMessage(consumer sarama.Consumer, topic string, partition int32, c chan *sarama.ConsumerMessage) {
-	msg, err := consumer.ConsumePartition(topic, partition, sarama.OffsetNewest)
-	if err != nil {
-		logrus.Errorf("Unable to consume partition %v got error %v", partition, err)
-		return
+	if username != "" {
+		kafkaConfig.Net.SASL.Enable = true
+		kafkaConfig.Net.SASL.User = username
+		kafkaConfig.Net.SASL.Password = password
 	}
-
-	defer func() {
-		if err := msg.Close(); err != nil {
-			logrus.Errorf("Unable to close partition %v: %v", partition, err)
-		}
-	}()
-	for {
-		msg := <-msg.Messages()
-		c <- msg
-	}
-
+	return kafkaConfig
 }

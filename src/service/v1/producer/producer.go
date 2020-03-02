@@ -2,7 +2,6 @@ package producer
 
 import (
 	"encoding/json"
-	"fmt"
 
 	"github.com/google/uuid"
 	httpEntity "github.com/sofyan48/ggwp/src/entity/v1/http"
@@ -24,24 +23,30 @@ func ProducerServiceHAndler() *ProduceService {
 
 // ProducerServiceInterface ...
 type ProducerServiceInterface interface {
-	SendMessages(payload *httpEntity.ProducerRequest) (int64, error)
+	SendMessages(payload *httpEntity.ProducerRequest) (*httpEntity.ProducerResponse, error)
 }
 
 // SendMessages ...
 // @data: string
 // topic: string
 // return int64, error
-func (svc *ProduceService) SendMessages(payload *httpEntity.ProducerRequest) (int64, error) {
+func (svc *ProduceService) SendMessages(payload *httpEntity.ProducerRequest) (*httpEntity.ProducerResponse, error) {
 	data := &entity.PayloadStateFull{}
+	result := &httpEntity.ProducerResponse{}
+	ID := uuid.New().String()
 	data.Data = payload.Data
 	data.Target = payload.Target
-	data.ID = uuid.New().String()
+	data.ID = ID
 	messages, err := json.Marshal(data)
 	if err != nil {
-		return 0, err
+		return result, err
 	}
-	fmt.Println(string(messages))
-	return 1, nil
-	// return svc.Kafka.Producer("test_topic", string(messages))
+	offset, err := svc.Kafka.Producer("test_topic", string(messages))
+	if err != nil {
+		return result, err
+	}
+	result.ID = ID
+	result.Offset = offset
+	return result, nil
 
 }
