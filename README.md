@@ -3,6 +3,26 @@
 ## Getting Started
 This support For go version 1.13, ggwp uncle Bob Models
 
+## Database Migration
+### Golang Migrate
+Documentation Mode 
+[Release Downloads](https://github.com/golang-migrate/migrate/blob/master/cmd/migrate/README.md)
+
+#### Installing
+##### MAC
+```
+brew install golang-migrate
+```
+##### Linux And Windows
+```
+curl -L https://github.com/golang-migrate/migrate/releases/download/$version/migrate.$platform-amd64.tar.gz | tar xvz
+```
+### Migrating Database
+```
+migrate -path src/migration/mysql/ -database 'mysql://root:root@tcp(localhost:3306)/boiler_db' up
+```
+***in this boilerplate migration path : src/migration/mysql/***
+
 #### Environment Setup
 For Development Mode Setup dotenv
 ```
@@ -131,7 +151,7 @@ docker-compose rm -f
 ```
 
 ## Tree
-
+Tree Project
 ```
 .
 ├── Dockerfile
@@ -224,7 +244,7 @@ docker-compose rm -f
 └── watcher.conf
 ```
 
-## How To Use
+## How To Understand this project
 See the list below for instructions on how to use this boilerplate:
 
 1. ***Entity*** are a form of modeling of the REST API and Query GraphQL that you will create
@@ -238,27 +258,7 @@ See the list below for instructions on how to use this boilerplate:
 
 Plugins and utils are in the ***util*** folder all third-party packages that help you should be stored in this folder, you can choose whether the package is a middleware of your REST API or as a pure supporting utility
 
-## Database Migration
-### Golang Migrate
-Documentation Mode 
-[Release Downloads](https://github.com/golang-migrate/migrate/blob/master/cmd/migrate/README.md)
 
-#### Installing
-##### MAC
-```
-brew install golang-migrate
-```
-
-##### Linux And Windows
-```
-curl -L https://github.com/golang-migrate/migrate/releases/download/$version/migrate.$platform-amd64.tar.gz | tar xvz
-```
-### Migrating Database
-
-```
-migrate -path path_migration/ -database 'mysql://root:root@tcp(localhost:3306)/boiler_db' up
-```
-**in this boilerplate migration path : src/migration/mysql/***
 
 ## Documentation Format
 ### Setup Swagger Docs
@@ -267,6 +267,75 @@ See Documentation
 ### Local Docs
 Local Swagger
 [Local](http://localhost:3000/swagger/index.html)
+### Insomnia
+import insomia REST file in ***docs/insomnia/api.json***
+### Curl
+#### Producer
+```bash
+curl --request POST \
+  --url http://localhost:3000/v1/producer \
+  --header 'content-type: application/json' \
+  --data '{
+	"target":"order",
+	"data" : {
+		"name": "sofyan",
+		"order_code": "123456"
+	}
+}'
+```
+#### Insert Data
+```bash
+curl --request POST \
+  --url http://localhost:3000/v1/user \
+  --header 'content-type: application/x-www-form-urlencoded' \
+  --data 'name=iank 2' \
+  --data email=iank_stc@yahoo.com \
+  --data password=password \
+  --data date_of_birth=1992-01-02 \
+  --data phone_number=081247930699 \
+  --data current_address=Current \
+  --data 'city=Jakarta Barat' \
+  --data province=Jakarta \
+  --data 'district=jakarta barat' \
+  --data lat=0 \
+  --data lng=0 \
+  --data job=Jobs \
+  --data image=https://image.com
+```
+#### Update User
+```bash
+curl --request PUT \
+  --url http://localhost:3000/v1/user/4 \
+  --header 'content-type: application/x-www-form-urlencoded' \
+  --data 'name=iank 6' \
+  --data email=iank_stc@yahoo.com \
+  --data password=password \
+  --data date_of_birth=1992-01-02 \
+  --data phone_number=081247930699 \
+  --data current_address=Current \
+  --data 'city=Jakarta Barat' \
+  --data province=Jakarta \
+  --data 'district=jakarta barat' \
+  --data lat=0 \
+  --data lng=0 \
+  --data job=Jobs \
+  --data image=https://image.com
+```
+#### Get All User -> graphql
+```bash
+curl --request POST \
+  --url http://localhost:3000/v1/graphql \
+  --header 'content-type: application/json' \
+  --data '{"query":"query {\n  Users(limit:10, page:0){\n      page\n    results {\n      id\n      name\n      city\n    }\n  }\n}"}'
+```
+
+#### Get User By ID -> Graphql
+```bash
+curl --request POST \
+  --url http://localhost:3000/v1/graphql \
+  --header 'content-type: application/json' \
+  --data '{"query":"query {\n  User(id:1){\n     id\n     name\n     city\n  }\n}"}'
+```
 
 ## How To Contribute
 Please refer to each project's style and contribution guidelines for submitting patches and additions. In general, we follow the "fork-and-pull" Git workflow.
