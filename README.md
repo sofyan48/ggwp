@@ -242,14 +242,14 @@ curl -L https://github.com/golang-migrate/migrate/releases/download/$version/mig
 ```
 migrate -path path_migration/ -database 'mysql://root:root@tcp(localhost:3306)/boiler_db' up
 ```
-**in this boilerplate migration path : src/migration/mysql***
+**in this boilerplate migration path : src/migration/mysql/***
 
 ## Documentation Format
 ### Setup Swagger Docs
 See Documentation 
 [Swag Docs](https://github.com/swaggo/swag)
 Local Swagger
-[Local](https://localhost:3000/swagger/index)
+[Local](https://localhost:3000/swagger/index.html)
 
 ## How To Contribute
 Please refer to each project's style and contribution guidelines for submitting patches and additions. In general, we follow the "fork-and-pull" Git workflow.
