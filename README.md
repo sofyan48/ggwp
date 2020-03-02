@@ -3,19 +3,6 @@
 ## Getting Started
 This support For go version 1.13, ggwp uncle Bob Models
 
-### Local Development
-
-Fork this repo for your repo then clone in your local
-```
-git clone https://github.com/sofyan48/boilerplate.git
-```
-
-Get Project Moduls
-
-```
-go get github.com/sofyan48/ggwp
-```
-
 #### Environment Setup
 For Development Mode Setup dotenv
 ```
@@ -59,19 +46,35 @@ KAFKA_PASSWORD=
 # SWAGGER CONFIGURATION
 ####################################################################
 SWAGGER_SERVER_ADDRESS=http://localhost:3000
-
 ```
 
-After environment setting then run your server
-
+### Local Development
+Fork this repo for your repo then clone in your local
+```
+git clone https://github.com/sofyan48/boilerplate.git
+```
+Run Local compose for dependency
+```bash
+docker-compose -f docker-compose-local.yml
+```
+Starting Worker 
+```
+go run worker/main.go
+```
+Starting GGWP
 ```
 go run src/main.go
 ```
 
-for building
+Building GGWP
 ```
 go build src/main.go
 ```
+Run Buildin
+```
+./main
+```
+
 #### Live Reload
 To activate Live Reload install air 
 ##### on macOS
@@ -106,29 +109,14 @@ air -c watcher.conf
 ```
 
 ### Production Mode
+#### Building Worker Images
+```bash
+cd worker && docker build -t ggwp_worker . && cd ..
+```
+#### Deploy
 
-#### Dockerizing
-Dockerizing 1
----
 Building Image
-```
-docker build -t ggwp
-```
-Edit Environment In docker-compose.yml then Run Compose
-```
-docker-compose up
-```
-Stop Container
-```
-docker-compose stop
-```
-Remove your container
-```
-docker-compose rm -f
-```
 
-Dockerizing 2
----
 Edit Environment In docker-compose.yml then Run Compose
 ```
 docker-compose up

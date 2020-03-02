@@ -1,15 +1,39 @@
 package main
 
 import (
+	"flag"
+	"fmt"
 	"os"
 	"time"
 
 	"github.com/Shopify/sarama"
+	"github.com/joho/godotenv"
 	"github.com/sirupsen/logrus"
 	"github.com/sofyan48/ggwp/worker/consumer"
 )
 
+// ConfigEnvironment |
+func ConfigEnvironment(env string) {
+	if env == "development" {
+		err := godotenv.Load()
+		if err != nil {
+			logrus.Fatal("Error loading .env file")
+		}
+	}
+}
+
 func main() {
+	environment := flag.String("e", "development", "")
+	flag.Usage = func() {
+		fmt.Println("Usage: server -e {mode}")
+		os.Exit(1)
+	}
+	flag.Parse()
+	ConfigEnvironment(*environment)
+	initWorker()
+}
+
+func initWorker() {
 	kafkaConfig := getKafkaConfig(os.Getenv("KAFKA_USERNAME"), os.Getenv("KAFKA_PASSWORD"))
 	kafkaHost := os.Getenv("KAFKA_HOST")
 	kafkaPort := os.Getenv("KAFKA_PORT")
