@@ -27,7 +27,352 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-	}
+		"/producer": {
+		  "post": {
+			"description": "",
+			"summary": "PRODUCER",
+			"operationId": "PRODUCER",
+			"deprecated": false,
+			"produces": [
+			  "application/json"
+			],
+			"parameters": [
+			  {
+				"name": "Body",
+				"in": "body",
+				"required": true,
+				"schema": {
+				  "$ref": "#/definitions/PRODUCERRequest"
+				}
+			  },
+			  {
+				"name": "Content-Type",
+				"in": "header",
+				"required": true,
+				"type": "string"
+			  }
+			],
+			"responses": {
+			  "200": {
+				"description": "",
+				"schema": {
+				  "type": "object"
+				},
+				"headers": {}
+			  }
+			}
+		  }
+		},
+		"/user": {
+		  "post": {
+			"description": "",
+			"summary": "INSERT_USER",
+			"operationId": "INSERT_USER",
+			"deprecated": false,
+			"produces": [
+			  "application/json"
+			],
+			"consumes": [
+			  "application/x-www-form-urlencoded"
+			],
+			"parameters": [
+			  {
+				"name": "name",
+				"in": "formData",
+				"required": true,
+				"type": "string"
+			  },
+			  {
+				"name": "email",
+				"in": "formData",
+				"required": true,
+				"type": "string"
+			  },
+			  {
+				"name": "password",
+				"in": "formData",
+				"required": true,
+				"type": "string"
+			  },
+			  {
+				"name": "date_of_birth",
+				"in": "formData",
+				"required": true,
+				"type": "string"
+			  },
+			  {
+				"name": "phone_number",
+				"in": "formData",
+				"required": true,
+				"type": "string"
+			  },
+			  {
+				"name": "current_address",
+				"in": "formData",
+				"required": true,
+				"type": "string"
+			  },
+			  {
+				"name": "city",
+				"in": "formData",
+				"required": true,
+				"type": "string"
+			  },
+			  {
+				"name": "province",
+				"in": "formData",
+				"required": true,
+				"type": "string"
+			  },
+			  {
+				"name": "district",
+				"in": "formData",
+				"required": true,
+				"type": "string"
+			  },
+			  {
+				"name": "lat",
+				"in": "formData",
+				"required": true,
+				"type": "string"
+			  },
+			  {
+				"name": "lng",
+				"in": "formData",
+				"required": true,
+				"type": "string"
+			  },
+			  {
+				"name": "job",
+				"in": "formData",
+				"required": true,
+				"type": "string"
+			  },
+			  {
+				"name": "image",
+				"in": "formData",
+				"required": true,
+				"type": "string"
+			  },
+			  {
+				"name": "Content-Type",
+				"in": "header",
+				"required": true,
+				"type": "string"
+			  }
+			],
+			"responses": {
+			  "200": {
+				"description": "",
+				"schema": {
+				  "type": "object"
+				},
+				"headers": {}
+			  }
+			}
+		  }
+		},
+		"/user/4": {
+		  "put": {
+			"description": "",
+			"summary": "UPDATE_USER",
+			"operationId": "UPDATE_USER",
+			"deprecated": false,
+			"produces": [
+			  "application/json"
+			],
+			"consumes": [
+			  "application/x-www-form-urlencoded"
+			],
+			"parameters": [
+			  {
+				"name": "name",
+				"in": "formData",
+				"required": true,
+				"type": "string"
+			  },
+			  {
+				"name": "email",
+				"in": "formData",
+				"required": true,
+				"type": "string"
+			  },
+			  {
+				"name": "password",
+				"in": "formData",
+				"required": true,
+				"type": "string"
+			  },
+			  {
+				"name": "date_of_birth",
+				"in": "formData",
+				"required": true,
+				"type": "string"
+			  },
+			  {
+				"name": "phone_number",
+				"in": "formData",
+				"required": true,
+				"type": "string"
+			  },
+			  {
+				"name": "current_address",
+				"in": "formData",
+				"required": true,
+				"type": "string"
+			  },
+			  {
+				"name": "city",
+				"in": "formData",
+				"required": true,
+				"type": "string"
+			  },
+			  {
+				"name": "province",
+				"in": "formData",
+				"required": true,
+				"type": "string"
+			  },
+			  {
+				"name": "district",
+				"in": "formData",
+				"required": true,
+				"type": "string"
+			  },
+			  {
+				"name": "lat",
+				"in": "formData",
+				"required": true,
+				"type": "string"
+			  },
+			  {
+				"name": "lng",
+				"in": "formData",
+				"required": true,
+				"type": "string"
+			  },
+			  {
+				"name": "job",
+				"in": "formData",
+				"required": true,
+				"type": "string"
+			  },
+			  {
+				"name": "image",
+				"in": "formData",
+				"required": true,
+				"type": "string"
+			  },
+			  {
+				"name": "Content-Type",
+				"in": "header",
+				"required": true,
+				"type": "string"
+			  }
+			],
+			"responses": {
+			  "200": {
+				"description": "",
+				"schema": {
+				  "type": "object"
+				},
+				"headers": {}
+			  }
+			}
+		  }
+		},
+		"/graphql": {
+		  "post": {
+			"description": "",
+			"summary": "GET ALL USER GRAPHQL",
+			"operationId": "GETALLUSERGRAPHQL",
+			"deprecated": false,
+			"produces": [
+			  "application/json"
+			],
+			"parameters": [
+			  {
+				"name": "Body",
+				"in": "body",
+				"required": true,
+				"schema": {
+				  "$ref": "#/definitions/GETALLUSERGRAPHQLRequest"
+				}
+			  },
+			  {
+				"name": "Content-Type",
+				"in": "header",
+				"required": true,
+				"type": "string"
+			  }
+			],
+			"responses": {
+			  "200": {
+				"description": "",
+				"schema": {
+				  "type": "object"
+				},
+				"headers": {}
+			  }
+			}
+		  }
+		}
+	  },
+	  "definitions": {
+		"PRODUCERRequest": {
+		  "title": "PRODUCERRequest",
+		  "example": {
+			"target": "order",
+			"data": {
+			  "name": "sofyan",
+			  "order_code": "123456"
+			}
+		  },
+		  "type": "object",
+		  "properties": {
+			"target": {
+			  "type": "string"
+			},
+			"data": {
+			  "type": "object"
+			}
+		  },
+		  "required": [
+			"target",
+			"data"
+		  ]
+		},
+		"GETALLUSERGRAPHQLRequest": {
+		  "title": "GETALLUSERGRAPHQLRequest",
+		  "example": {
+			"query": "query {\n  Users(limit:10, page:0){\n      page\n    results {\n      id\n      name\n      city\n    }\n  }\n}"
+		  },
+		  "type": "object",
+		  "properties": {
+			"query": {
+			  "type": "string"
+			}
+		  },
+		  "required": [
+			"query"
+		  ]
+		},
+		"GETUSERBYIDGRAPHQLRequest": {
+		  "title": "GETUSERBYIDGRAPHQLRequest",
+		  "example": {
+			"query": "query {\n  User(id:1){\n     id\n     name\n     city\n  }\n}"
+		  },
+		  "type": "object",
+		  "properties": {
+			"query": {
+			  "type": "string"
+			}
+		  },
+		  "required": [
+			"query"
+		  ]
+		}
+	  }
 }`
 
 type swaggerInfo struct {
