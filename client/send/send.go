@@ -24,12 +24,13 @@ type SendInterface interface {
 }
 
 // Send ..
-func (handler *Send) Send(room, id, value string) (*entity.ProducerResponse, error) {
+func (handler *Send) Send(room, id, to, value string) (*entity.ProducerResponse, error) {
 	chat := &entity.PayloadStateFull{}
 	chatData := &entity.ChatData{}
 	result := &entity.ProducerResponse{}
 	chatData.Chat = value
 	chatData.ID = id
+	chatData.To = to
 	ID := uuid.New().String()
 	chat.Data = chatData
 	chat.Room = room

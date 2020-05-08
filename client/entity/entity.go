@@ -9,6 +9,7 @@ type PayloadStateFull struct {
 
 type ChatData struct {
 	ID   string `json:"id"`
+	To   string `json:"to"`
 	Chat string `json:"chat"`
 }
 

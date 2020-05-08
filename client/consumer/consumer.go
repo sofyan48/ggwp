@@ -29,7 +29,6 @@ func (c *KafkaConsumer) Consume(topics []string, signals chan os.Signal, room, I
 			go consumeMessage(c.Consumer, topic, partition, chanMessage)
 		}
 	}
-	logrus.Infof("Kafka is consuming....")
 
 ConsumerLoop:
 	for {
@@ -70,5 +69,17 @@ func hearChat(room, ID string, payload *entity.PayloadStateFull) {
 	if payload.Room != room {
 		return
 	}
-	fmt.Println("DATA: ", payload)
+	if payload.Data.To != ID {
+		return
+	}
+	var fromName string
+	if payload.Data.ID == ID {
+		fromName = "ME"
+	} else {
+		fromName = payload.Data.ID
+	}
+	fmt.Println("--------------- RECEIVE 1 MESSAGES ---------------")
+	fmt.Println("From: ", fromName)
+	fmt.Println("Messages: ", payload.Data.Chat)
+	fmt.Println("###################################################")
 }
