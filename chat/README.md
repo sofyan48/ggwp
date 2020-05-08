@@ -22,4 +22,4 @@ go run main.go -w send
 ```
 
 ### Example
-![chat](https://github.com/sofyan48/ggwp/blob/master/client/docs/example.png)
+![chat](https://github.com/sofyan48/ggwp/blob/master/chat/docs/example.png)
