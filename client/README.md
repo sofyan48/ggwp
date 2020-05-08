@@ -21,3 +21,5 @@ setup room and chat id
 go run main.go -w send
 ```
 
+### Example
+![chat](https://github.com/sofyan48/ggwp/blob/master/client/docs/example.png)
