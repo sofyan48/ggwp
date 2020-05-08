@@ -1,4 +1,4 @@
-module github.com/sofyan48/ggwp/client
+module github.com/sofyan48/ggwp/chat
 
 go 1.13
 

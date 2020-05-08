@@ -9,8 +9,8 @@ import (
 	"github.com/Shopify/sarama"
 	"github.com/joho/godotenv"
 	"github.com/sirupsen/logrus"
-	"github.com/sofyan48/ggwp/client/consumer"
-	"github.com/sofyan48/ggwp/client/send"
+	"github.com/sofyan48/ggwp/chat/consumer"
+	"github.com/sofyan48/ggwp/chat/send"
 )
 
 // ConfigEnvironment |

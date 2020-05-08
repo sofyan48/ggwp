@@ -7,7 +7,7 @@ import (
 
 	"github.com/Shopify/sarama"
 	"github.com/sirupsen/logrus"
-	"github.com/sofyan48/ggwp/client/entity"
+	"github.com/sofyan48/ggwp/chat/entity"
 )
 
 // KafkaConsumer hold sarama consumer

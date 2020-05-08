@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 
 	"github.com/google/uuid"
-	"github.com/sofyan48/ggwp/client/entity"
-	"github.com/sofyan48/ggwp/client/utils/kafka"
+	"github.com/sofyan48/ggwp/chat/entity"
+	"github.com/sofyan48/ggwp/chat/utils/kafka"
 )
 
 type Send struct {
