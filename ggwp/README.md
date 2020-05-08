@@ -286,22 +286,21 @@ Local Swagger
 ### Insomnia
 import insomia REST file in ***docs/insomnia/api.json***
 ### Curl
-#### Producer
+#### Producer Chat To All
 ```bash
 curl --request POST \
   --url http://localhost:3000/v1/producer \
   --header 'content-type: application/json' \
   --data '{
-	"target":"order",
+	"room":"12345",
 	"data" : {
-		"name": "sofyan",
-		"order_code": "123456"
+		"id": "SERVER",
+		"chat": "Hey Hey",
+		"to": "meong"
 	}
 }'
 ```
 ![producer](https://github.com/sofyan48/ggwp/blob/master/ggwp/ggwp/docs/images/producer.png)
-***Consumer***
-![consumer](https://github.com/sofyan48/ggwp/blob/master/ggwp/docs/images/consumer.png)
 
 
 #### Insert Data
