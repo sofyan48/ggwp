@@ -299,9 +299,9 @@ curl --request POST \
 	}
 }'
 ```
-![producer](https://github.com/sofyan48/ggwp/blob/master/docs/images/producer.png)
+![producer](https://github.com/sofyan48/ggwp/blob/master/ggwp/ggwp/docs/images/producer.png)
 ***Consumer***
-![consumer](https://github.com/sofyan48/ggwp/blob/master/docs/images/consumer.png)
+![consumer](https://github.com/sofyan48/ggwp/blob/master/ggwp/docs/images/consumer.png)
 
 
 #### Insert Data
@@ -323,7 +323,7 @@ curl --request POST \
   --data job=Jobs \
   --data image=https://image.com
 ```
-![Insert](https://github.com/sofyan48/ggwp/blob/master/docs/images/insert.png)
+![Insert](https://github.com/sofyan48/ggwp/blob/master/ggwp/docs/images/insert.png)
 
 #### Update User
 ```bash
@@ -344,7 +344,7 @@ curl --request PUT \
   --data job=Jobs \
   --data image=https://image.com
 ```
-![Update](https://github.com/sofyan48/ggwp/blob/master/docs/images/update.png)
+![Update](https://github.com/sofyan48/ggwp/blob/master/ggwp/docs/images/update.png)
 
 #### Get All User -> graphql
 ```bash
@@ -353,7 +353,7 @@ curl --request POST \
   --header 'content-type: application/json' \
   --data '{"query":"query {\n  Users(limit:10, page:0){\n      page\n    results {\n      id\n      name\n      city\n    }\n  }\n}"}'
 ```
-![all_user](https://github.com/sofyan48/ggwp/blob/master/docs/images/all_user.png)
+![all_user](https://github.com/sofyan48/ggwp/blob/master/ggwp/docs/images/all_user.png)
 
 #### Get User By ID -> Graphql
 ```bash
@@ -362,7 +362,7 @@ curl --request POST \
   --header 'content-type: application/json' \
   --data '{"query":"query {\n  User(id:1){\n     id\n     name\n     city\n  }\n}"}'
 ```
-![user_id](https://github.com/sofyan48/ggwp/blob/master/docs/images/id_user.png)
+![user_id](https://github.com/sofyan48/ggwp/blob/master/ggwp/docs/images/id_user.png)
 
 
 ## How To Contribute
