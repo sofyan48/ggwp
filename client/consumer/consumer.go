@@ -1,10 +1,13 @@
 package consumer
 
 import (
+	"encoding/json"
+	"fmt"
 	"os"
 
 	"github.com/Shopify/sarama"
 	"github.com/sirupsen/logrus"
+	"github.com/sofyan48/ggwp/client/entity"
 )
 
 // KafkaConsumer hold sarama consumer
@@ -13,7 +16,7 @@ type KafkaConsumer struct {
 }
 
 // Consume function to consume message from apache kafka
-func (c *KafkaConsumer) Consume(topics []string, signals chan os.Signal) {
+func (c *KafkaConsumer) Consume(topics []string, signals chan os.Signal, room, ID string) {
 	chanMessage := make(chan *sarama.ConsumerMessage, 256)
 
 	for _, topic := range topics {
@@ -32,7 +35,9 @@ ConsumerLoop:
 	for {
 		select {
 		case msg := <-chanMessage:
-			logrus.Infof("New Message from kafka, message: %v", string(msg.Value))
+			payloadData := &entity.PayloadStateFull{}
+			json.Unmarshal(msg.Value, payloadData)
+			hearChat(room, ID, payloadData)
 		case sig := <-signals:
 			if sig == os.Interrupt {
 				break ConsumerLoop
@@ -59,4 +64,11 @@ func consumeMessage(consumer sarama.Consumer, topic string, partition int32, c c
 		c <- msg
 	}
 
+}
+
+func hearChat(room, ID string, payload *entity.PayloadStateFull) {
+	if payload.Room != room {
+		return
+	}
+	fmt.Println("DATA: ", payload)
 }

@@ -30,15 +30,22 @@ func main() {
 	}
 	flag.Parse()
 	ConfigEnvironment(*environment)
-	go initWorker()
-	var chat string
+
+	var ID string
+	var room string
+	fmt.Printf("Room Name: ")
+	fmt.Scanln(&room)
+	fmt.Printf("ID Name: ")
+	fmt.Scanln(&ID)
+	go initWorker(room)
 	for {
-		fmt.Scanln(&chat)
-		fmt.Println(chat)
+		fmt.Printf("ID : ")
+		fmt.Scanln(&id)
+		fmt.Println(id)
 	}
 }
 
-func initWorker() {
+func initWorker(room, ID string) {
 	kafkaConfig := getKafkaConfig(os.Getenv("KAFKA_USERNAME"), os.Getenv("KAFKA_PASSWORD"))
 	kafkaHost := os.Getenv("KAFKA_HOST")
 	kafkaPort := os.Getenv("KAFKA_PORT")
@@ -58,7 +65,7 @@ func initWorker() {
 	}
 
 	signals := make(chan os.Signal, 1)
-	kafkaConsumer.Consume([]string{"chat"}, signals)
+	kafkaConsumer.Consume([]string{"chat"}, signals, room, ID)
 }
 
 func getKafkaConfig(username, password string) *sarama.Config {
