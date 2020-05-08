@@ -300,7 +300,7 @@ curl --request POST \
 	}
 }'
 ```
-![producer](https://github.com/sofyan48/ggwp/blob/master/ggwp/ggwp/docs/images/producer.png)
+![producer](https://github.com/sofyan48/ggwp/blob/master/ggwp/docs/images/producer.png)
 
 
 #### Insert Data
