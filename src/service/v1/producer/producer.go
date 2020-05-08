@@ -35,13 +35,13 @@ func (svc *ProduceService) SendMessages(payload *httpEntity.ProducerRequest) (*h
 	result := &httpEntity.ProducerResponse{}
 	ID := uuid.New().String()
 	data.Data = payload.Data
-	data.Target = payload.Target
+	data.Room = payload.Room
 	data.ID = ID
 	messages, err := json.Marshal(data)
 	if err != nil {
 		return result, err
 	}
-	offset, err := svc.Kafka.Producer("test_topic", string(messages))
+	offset, err := svc.Kafka.Producer("chat", string(messages))
 	if err != nil {
 		return result, err
 	}
