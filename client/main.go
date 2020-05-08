@@ -37,11 +37,16 @@ func main() {
 	fmt.Scanln(&room)
 	fmt.Printf("ID Name: ")
 	fmt.Scanln(&ID)
-	go initWorker(room)
+	go initWorker(room, ID)
+
+	var chatValue, toValue string
 	for {
-		fmt.Printf("ID : ")
-		fmt.Scanln(&id)
-		fmt.Println(id)
+		fmt.Printf("to : ")
+		fmt.Scanln(&toValue)
+		fmt.Println(toValue)
+		fmt.Printf("Chat : ")
+		fmt.Scanln(&chatValue)
+		fmt.Println(chatValue)
 	}
 }
 
